@@ -1,0 +1,83 @@
+{
+  "network": "sepolia",
+  "chainId": 11155111,
+  "contracts": {
+    "registry": "0xB2BCa33595c1e482e3a6cA9D4df99895fCe3030b",
+    "repTracker": "0x9bF6B78121824f50ae2ADD3F5D6095Cc48Af98F3",
+    "creditOracle": "0xFA52ee8e41ff766e8dC7675cfc59d454F3EbCba9",
+    "rateModel": "0xca2db97e8977CC68eC2f7dE0f16f4F743d6bd399",
+    "positions": "0x020564Fe5367E1c9F029Afc11C651b21061BeD27",
+    "guarantor": "0x21dD518251117e69174d34D1F43d5Fd340e243fC",
+    "auction": "0xf8C82290591dDA9A710aB4e07b5036D8F241930b",
+    "engine": "0xb2686e92CfB07830f504C0029dE1aF7c7F25444c",
+    "pool": "0xB3771769c56Eff1946D32ecdA91A50d9e22cb18D",
+    "compliance": "0x07A55C4f30D8B0c155c6167033cab6aB2075ebd0",
+    "cUSDC": "0xaD8aE90DefFFaf553aA2A07Ee0dd22C74451ec1C",
+    "cWETH": "0xC65AC40d37DAF5A39dEAe0cb0181574acDB82576",
+    "cWBTC": "0xf16ffA3C53d2D6469a4379e65d97A7a4e945d6f4",
+    "cLINK": "0x068339195c5326C914613F3B85aF963c3eC3ff63",
+    "cEUR": "0x8d87106463fde5a110B168383Ba07592d9F541f9"
+  },
+  "markets": [
+    {
+      "id": 0,
+      "collateral": "cWETH",
+      "debt": "cUSDC",
+      "feed": "ETH/USD",
+      "lltvBps": 8000,
+      "oracle": "0xDe01f6e95Bc8d4d2ddB36Aa4827f2fbE522dC844",
+      "collateralToken": "0xC65AC40d37DAF5A39dEAe0cb0181574acDB82576",
+      "debtToken": "0xaD8aE90DefFFaf553aA2A07Ee0dd22C74451ec1C"
+    },
+    {
+      "id": 1,
+      "collateral": "cWBTC",
+      "debt": "cUSDC",
+      "feed": "BTC/USD",
+      "lltvBps": 8000,
+      "oracle": "0xc6f7CeDB7B93dd69060894fB12089109e03b4456",
+      "collateralToken": "0xf16ffA3C53d2D6469a4379e65d97A7a4e945d6f4",
+      "debtToken": "0xaD8aE90DefFFaf553aA2A07Ee0dd22C74451ec1C"
+    },
+    {
+      "id": 2,
+      "collateral": "cLINK",
+      "debt": "cUSDC",
+      "feed": "LINK/USD",
+      "lltvBps": 7500,
+      "oracle": "0x10dD24c4f246a16c7fc5A498aaBC3fCCab3C0f93",
+      "collateralToken": "0x068339195c5326C914613F3B85aF963c3eC3ff63",
+      "debtToken": "0xaD8aE90DefFFaf553aA2A07Ee0dd22C74451ec1C"
+    },
+    {
+      "id": 3,
+      "collateral": "cEUR",
+      "debt": "cUSDC",
+      "feed": "EUR/USD",
+      "lltvBps": 8500,
+      "oracle": "0x95d98C0585d96969ea7FeF235F8BB4Ca5370fd35",
+      "collateralToken": "0x8d87106463fde5a110B168383Ba07592d9F541f9",
+      "debtToken": "0xaD8aE90DefFFaf553aA2A07Ee0dd22C74451ec1C"
+    },
+    {
+      "id": 4,
+      "collateral": "cWETH",
+      "debt": "cWBTC",
+      "feed": "ETH/USD/BTC/USD",
+      "lltvBps": 7500,
+      "oracle": "0x38592c4F348a22dA698C116947eBBe19FC45F8B2",
+      "collateralToken": "0xC65AC40d37DAF5A39dEAe0cb0181574acDB82576",
+      "debtToken": "0xf16ffA3C53d2D6469a4379e65d97A7a4e945d6f4"
+    },
+    {
+      "id": 5,
+      "collateral": "cWBTC",
+      "debt": "cWETH",
+      "feed": "BTC/USD/ETH/USD",
+      "lltvBps": 7500,
+      "oracle": "0xF553f808CDeBa13CB0A6d6EE85E9Df9fEFD5BCfd",
+      "collateralToken": "0xf16ffA3C53d2D6469a4379e65d97A7a4e945d6f4",
+      "debtToken": "0xC65AC40d37DAF5A39dEAe0cb0181574acDB82576"
+    }
+  ]
+}
