@@ -58,7 +58,8 @@ function PositionRow({ m, reveal, address }: { m: Market; reveal: boolean; addre
   const { data: dec } = useUserDecrypt({ handles }, { enabled: reveal && handles.length > 0 });
   const decMap = dec as Record<string, bigint> | undefined;
 
-  const show = (h?: string) => (!reveal ? '••••' : h && decMap?.[h] !== undefined ? String(decMap[h]) : '…');
+  const show = (h?: string) =>
+    !reveal ? '••••' : !h || h === NULL_HANDLE ? '0' : decMap?.[h] !== undefined ? String(decMap[h]) : '…';
 
   async function repay() {
     if (!address || !amt) return;
