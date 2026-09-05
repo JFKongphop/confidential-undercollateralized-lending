@@ -1,163 +1,74 @@
-CREDITLEND — FULL DEMO SCRIPT (every page, click along one step at a time)
-==========================================================================
-App: http://localhost:3210   ·   Network: Sepolia
-Have MetaMask on Sepolia. If it errors on gas, set MetaMask's Sepolia RPC to:
-  https://ethereum-sepolia-rpc.publicnode.com
-Writes ("Submit & score", "Deposit", "Borrow", "Repay", "Bid"...) pop a MetaMask
-CONFIRM (costs gas) — click Confirm and wait for the tx.
-"Decrypt" buttons pop a MetaMask SIGNATURE (no gas) — just Sign.
+CREDITLEND — DEMO CLICK SCRIPT (actions only, no narration)
+===========================================================
+App: http://localhost:3210   ·   MetaMask on Sepolia
+Writes → MetaMask Confirm (gas).   Decrypt → MetaMask Sign (no gas).
 
-The story: "Onchain lending is public — so credit can't exist onchain. CreditLend encrypts
-creditworthiness itself, so you can borrow on reputation, below 100% collateral."
-
-Demo order:
-  0 Landing → 1 Connect → 2 Faucet → 3 Dashboard: SUBMIT + SCORE → 4 Markets →
-  5 Borrow → 6 Positions → 7 Repay → 8 Credit line (reputation) → 9 Guarantor →
-  10 Liquidations → 11 Compliance → 12 Attack demo → Closer
-
-----------------------------------------------------------------
 STEP 0 — Landing
-----------------------------------------------------------------
 - Open http://localhost:3210
-- One line: "Every position onchain is a public broadcast. We encrypt the credit layer."
-- Click "Launch app →".
+- Click "Launch app →"
 
-----------------------------------------------------------------
 STEP 1 — Connect
-----------------------------------------------------------------
-- Click "Connect Wallet", approve in MetaMask.
-- Confirm the network reads "sepolia".
+- Click "Connect Wallet" → approve in MetaMask
+- Check network reads "sepolia"
 
-----------------------------------------------------------------
-STEP 2 — Faucet (encrypted test tokens)
-----------------------------------------------------------------
-- Left menu → "Faucet".
-- On cEUR click "Mint 100,000". Confirm in MetaMask.
-- (Optional) also mint cUSDC — the debt asset in the demo market.
-- Say: "Balances are ERC-7984 ciphertexts — the chain never sees the amount."
+STEP 2 — Faucet
+- Left menu → "Faucet"
+- On cEUR click "Mint 100,000" → Confirm
+- On cUSDC click "Mint 100,000" → Confirm
+- Click "Decrypt balance" on a row → Sign → balance shows
 
-----------------------------------------------------------------
-STEP 3 — Dashboard: SUBMIT INPUTS → GET YOUR SCORE  ← the core privacy moment
-----------------------------------------------------------------
-- Left menu → "Dashboard".
-- LEFT card "Submit encrypted inputs":
-    · Aggregate balance (proof-of-funds) = leave 500000000 (or type your own)
-    · Account age (pre-bucketed)         = leave 1000
-    · Click "Submit & score".
-    · MetaMask pops TWICE-ish: it encrypts in the browser, then Confirm the tx. Wait for it.
-- Say: "These are encrypted in MY browser. The oracle computes my score + risk band ON
-  CIPHERTEXT — the raw balance and age never touch the chain."
-- RIGHT card "Your private credit report": after the tx confirms, click "Decrypt my score"
-  → Sign in MetaMask.
-- The report appears: the 3 bars (Balance / Account age / History), the Score, and the
-  Risk band X/5 with its label (e.g. "Medium").
-- Say: "This score is an euint32 onchain. Only I can decrypt it — nobody can profile me."
+STEP 3 — Dashboard: submit + score
+- Left menu → "Dashboard"
+- Aggregate balance = 500000000
+- Account age = 1000
+- Click "Submit & score" → Confirm → wait for tx
+- Click "Decrypt my score" → Sign
+- Score + Risk band + breakdown appear
 
-----------------------------------------------------------------
-STEP 4 — Markets (6 isolated markets, live Chainlink)
-----------------------------------------------------------------
-- Left menu → "Markets".
-- Show the grid: each card = collateral→debt, a live Chainlink price, its feed, and LLTV.
-- Say: "Six isolated markets. Prices are public Chainlink feeds; the collateral and debt tokens
-  are ERC-7984 confidential. Public prices, private positions."
+STEP 4 — Markets
+- Left menu → "Markets"
+- (just show the grid)
 
-----------------------------------------------------------------
-STEP 5 — Borrow (deposit + borrow, all encrypted)
-----------------------------------------------------------------
-- Left menu → "Borrow".
-- In the market grid select "cEUR → cUSDC" (the undercollateralized demo market).
-- Deposit collateral field = 1000 → click "Deposit cEUR". Confirm in MetaMask (approve/operator
-  popup first if it asks), wait for the tx.
-- Borrow field = 500 → click "Borrow cUSDC". Confirm in MetaMask.
-- Say: "The amount is encrypted client-side. The pool picks my ratio from my ENCRYPTED band
-  (from Step 3) and values collateral via Chainlink — all on ciphertext. Under-collateralized
-  clamps to 0, it never reverts and leaks my balance."
+STEP 5 — Borrow
+- Left menu → "Borrow"
+- Select market "cEUR → cUSDC"
+- Deposit collateral = 1000 → click "Deposit cEUR" → Confirm (approve/operator popup first if asked) → wait
+- Borrow = 500 → click "Borrow cUSDC" → Confirm
 
-----------------------------------------------------------------
-STEP 6 — Positions (only YOU can read your debt)
-----------------------------------------------------------------
-- Left menu → "Positions".
-- Click "Decrypt positions" → Sign in MetaMask.
-- The cEUR→cUSDC row now shows your collateral + debt in plaintext — to you only.
-  (Other rows stay "…" because you have no position there — that's expected.)
-- Say: "The same handles are gibberish to everyone else on the explorer."
+STEP 6 — Positions
+- Left menu → "Positions"
+- Click "Decrypt positions" → Sign
+- cEUR→cUSDC row shows collateral + debt (others show 0)
 
-----------------------------------------------------------------
-STEP 7 — Repay (build reputation)
-----------------------------------------------------------------
-- Still on "Positions", cEUR→cUSDC row: type a repay amount (e.g. 500) → click "Repay".
-- Confirm the operator/approve popup first, then the Repay tx.
-- Say: "Each on-time repayment raises my ENCRYPTED reputation (+50); a miss decays it."
+STEP 7 — Repay
+- On Positions, cEUR→cUSDC row: type 500 → click "Repay"
+- Confirm approve/operator popup → then Confirm Repay
 
-----------------------------------------------------------------
-STEP 8 — Credit line → UNDERCOLLATERALIZED borrow (killer feature)
-----------------------------------------------------------------
-- Left menu → "Credit line".
-- Click "Decrypt my credit line" → Sign in MetaMask.
-- Your reputation shows, and the credit line = reputation × 10 (higher after Step 7's repay).
-- Say: "That line is added to my backing as VIRTUAL collateral. With enough reputation I can
-  borrow BELOW 100% collateral — impossible on a transparent chain, where a public score gets
-  gamed and front-run. Under FHE it just works."
-- (Optional) go back to Borrow and borrow more than collateral alone would allow, to show it live.
+STEP 8 — Credit line
+- Left menu → "Credit line"
+- Click "Decrypt my credit line" → Sign
+- Reputation + credit line appear
 
-----------------------------------------------------------------
-STEP 9 — Guarantor (confidential third-party backing)
-----------------------------------------------------------------
-- Left menu → "Guarantor".
-- Pick a Market, paste a Borrower address, enter a Backing amount → click the guarantee button.
-  Confirm in MetaMask.
-- Say: "A third party posts ENCRYPTED backing to lift a borrower's limit — without revealing who
-  backed whom, or for how much."
+STEP 9 — Guarantor
+- Left menu → "Guarantor"
+- Pick a Market
+- Paste a Borrower address
+- Enter a Backing amount
+- Click the guarantee button → Confirm
 
-----------------------------------------------------------------
-STEP 10 — Liquidations (reveal-one-bit + sealed-bid auction)
-----------------------------------------------------------------
-- Left menu → "Liquidations".
-- Trigger card: pick the market, paste a borrower address → "Request". Confirm in MetaMask.
-- Fulfill card: enter the Request id → "Fulfill". (Reveals ONLY the health bit.)
-- Sealed-bid auction card: enter an Auction id + Your bid (e.g. 900) → "Place bid" (encrypted),
-  then "Settle + pay".
-- Say: "Liquidators bid on ciphertext; the winner is an encrypted running-max. Only the outcome
-  is ever revealed — no front-running. A keeper can automate all of this."
+STEP 10 — Liquidations
+- Left menu → "Liquidations"
+- Trigger card: pick market, paste borrower address → "Request" → Confirm
+- Fulfill card: enter Request id → "Fulfill" → Confirm
+- Auction card: enter Auction id + bid 900 → "Place bid" → Confirm
+- Then "Settle + pay" → Confirm
 
-----------------------------------------------------------------
-STEP 11 — Compliance (consent-based, scoped auditing)
-----------------------------------------------------------------
-- Left menu → "Compliance".
-- Step 1 (admin): paste an auditor address → "Set auditor". Confirm.
-- Step 2 (borrower): pick cEUR→cUSDC, paste the same auditor address → "Grant scoped access". Confirm.
-- Step 3 (auditor): pick the market + your borrower address → "Decrypt debt".
-- Say: "The auditor decrypts EXACTLY one field. Any other handle → ACLNotAllowed. Compliance
-  without a backdoor."
+STEP 11 — Compliance
+- Left menu → "Compliance"
+- Step 1: paste auditor address → "Set auditor" → Confirm
+- Step 2: pick cEUR→cUSDC, paste same auditor address → "Grant scoped access" → Confirm
+- Step 3: pick market + your borrower address → "Decrypt debt" → Sign
 
-----------------------------------------------------------------
-STEP 12 — Attack demo (why it all has to be encrypted) — strong closer
-----------------------------------------------------------------
-- Left menu → "Attack demo".
-- Walk the rate-inversion story: if the borrow rate were public, an attacker inverts the curve to
-  recover your hidden credit band — the leak defeats the encryption.
-- Say: "That's why our rate stays an euint32 end-to-end. This page proves the attack, and proves
-  our defense."
-
-----------------------------------------------------------------
-CLOSER
-----------------------------------------------------------------
-"Encrypted credit score, encrypted risk-priced rate, encrypted positions, confidential guarantors,
-sealed-bid liquidations, scoped compliance — and the one thing no other confidential lender has:
-borrow on reputation, below 100% collateral. That's the private credit layer for onchain lending."
-
-Every sidebar page — one-line map:
-  Dashboard     → submit encrypted inputs → private credit score + risk band  (Step 3)
-  Markets       → 6 isolated markets, live Chainlink prices
-  Borrow        → deposit + borrow (cEUR→cUSDC market)
-  Positions     → decrypt your own debt/collateral + Repay
-  Credit line   → decrypt reputation + credit line (killer feature)
-  Guarantor     → confidential third-party backing
-  Liquidations  → reveal-one-bit + sealed-bid auction
-  Compliance    → scoped auditor decrypt
-  Faucet        → mint encrypted tokens
-  Attack demo   → rate-inversion proof
-
-NOTE — two different "credit" things, don't mix them up:
-  · Dashboard "score"  = from your submitted balance + age (Step 3). Decrypt with "Decrypt my score".
-  · Credit line page   = from your repayment REPUTATION (grows after Step 7). "Decrypt my credit line".
+STEP 12 — Attack demo
+- Left menu → "Attack demo"
+- (show the page / run the demo action on it)

@@ -83,7 +83,7 @@ function PositionRow({ m, reveal, address }: { m: Market; reveal: boolean; addre
       <div style={{ display: 'flex', gap: 6, justifyContent: 'flex-end' }}>
         <input className="mono" placeholder="amt" value={amt} onChange={(e) => setAmt(e.target.value.replace(/\D/g, ''))}
           style={{ width: 68, padding: '7px 9px', fontSize: 13, background: 'var(--bg-elevated)', border: '1px solid var(--border-strong)', borderRadius: 6, color: 'var(--text)', outline: 'none' }} />
-        <button className="btn btn-ghost" style={{ padding: '7px 12px', fontSize: 12.5 }} disabled={!address || !amt || !!busy} onClick={repay}>{busy || 'Repay'}</button>
+        <button className="btn btn-ghost" style={{ padding: '7px 12px', fontSize: 12.5, minWidth: 108, justifyContent: 'center', whiteSpace: 'nowrap' }} disabled={!address || !amt || !!busy} onClick={repay}>{busy || 'Repay'}</button>
       </div>
     </div>
   );
