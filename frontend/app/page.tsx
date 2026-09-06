@@ -9,6 +9,7 @@ const FEATURES = [
   { icon: '🤝', title: 'Confidential guarantors', body: 'A third party posts encrypted backing to lift your limit — without revealing who backed whom, or for how much.' },
   { icon: '⚖️', title: 'Sealed-bid liquidations', body: 'Liquidators bid on ciphertext; the winner is selected via an encrypted running-max. Only the outcome is ever revealed — no front-running.' },
   { icon: '🕵️', title: 'Scoped compliance', body: 'Grant an auditor consent-based, per-handle decrypt access to exactly one field — and prove they can read nothing else.' },
+  { icon: '🎟️', title: 'No-loss prize savings', body: 'Deposit into a shared pool that supplies the lending market; the interest becomes a prize, awarded to one saver by a fair FHE.randEuint64 draw. Withdraw principal any time.' },
 ];
 
 const STEPS = [
@@ -35,15 +36,15 @@ export default function Home() {
           <div>
             <div className="pill"><span className="dot" /> Live on Zama FHEVM · Sepolia</div>
             <h1 style={{ fontSize: 58, lineHeight: 1.04, letterSpacing: '-0.035em', fontWeight: 800, margin: '22px 0 20px' }}>
-              The private <span className="grad-text">credit layer</span> for onchain lending.
+              Confidential lending that pays a <span className="grad-text">no-loss prize</span>.
             </h1>
             <p className="muted" style={{ fontSize: 19, lineHeight: 1.55, maxWidth: 540 }}>
-              Every lending position onchain is a public broadcast — your size, debt, and liquidation price. CreditLend
-              encrypts <em style={{ color: 'var(--text)', fontStyle: 'normal' }}>creditworthiness itself</em>, so lending
-              can be credit-based, not just over-collateralized. Computed end-to-end on ciphertext.
+              A full confidential credit market — encrypted scores, risk-priced rates, sealed-bid liquidations — whose
+              <em style={{ color: 'var(--text)', fontStyle: 'normal' }}> interest funds a no-loss prize pool</em>. Save
+              privately, get lent out, and win the yield in a provably-fair FHE draw. Principal never at risk.
             </p>
             <div style={{ display: 'flex', gap: 14, marginTop: 34 }}>
-              <Link className="btn btn-primary" href="/app">Launch app →</Link>
+              <Link className="btn btn-primary" href="/app/prize">Enter the pool →</Link>
               <a className="btn btn-ghost" href="#how">See how it works</a>
             </div>
           </div>
@@ -150,7 +151,7 @@ export default function Home() {
           <div className="card" style={{ textAlign: 'center', padding: '60px 24px', background: 'radial-gradient(600px circle at 50% 0%, rgba(22,163,74,0.10), transparent 70%), var(--bg-surface)' }}>
             <h2 style={{ fontSize: 34, letterSpacing: '-0.03em', fontWeight: 750 }}>Borrow with your credit — not your privacy.</h2>
             <p className="muted" style={{ fontSize: 17, margin: '14px auto 30px', maxWidth: 480 }}>Connect a Sepolia wallet and decrypt your own private credit report in seconds.</p>
-            <Link className="btn btn-primary" href="/app" style={{ padding: '14px 28px', fontSize: 16 }}>Launch app →</Link>
+            <Link className="btn btn-primary" href="/app/prize" style={{ padding: '14px 28px', fontSize: 16 }}>Enter the pool →</Link>
           </div>
         </div>
       </section>

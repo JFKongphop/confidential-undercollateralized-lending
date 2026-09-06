@@ -3,9 +3,9 @@ import './globals.css';
 import { Providers } from './providers';
 
 export const metadata: Metadata = {
-  title: 'CreditLend — Confidential Credit-Based Lending on Zama FHEVM',
+  title: 'CreditLend — Confidential Lending + No-Loss Prize Savings on Zama FHEVM',
   description:
-    'The private credit layer for onchain lending. Encrypted credit scores, risk-priced rates, and sealed-bid liquidations — computed entirely on ciphertext with Zama FHEVM.',
+    'A confidential lending market whose interest funds a no-loss prize pool. Encrypted credit scores, risk-priced rates, and sealed-bid liquidations — and savers win the yield in a provably-fair FHE draw. Computed entirely on ciphertext with Zama FHEVM.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
