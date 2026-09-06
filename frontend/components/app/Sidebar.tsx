@@ -9,6 +9,8 @@ import { NETWORK } from '@/lib/lending';
 
 const NAV = [
   { href: '/app', label: 'Dashboard', icon: '▦' },
+  { href: '/app/prize', label: 'Prize Pool', icon: '🎟️' },
+  { href: '/app/draw', label: 'Draws', icon: '🎲' },
   { href: '/app/markets', label: 'Markets', icon: '☰' },
   { href: '/app/borrow', label: 'Borrow', icon: '↑' },
   { href: '/app/positions', label: 'Positions', icon: '◈' },
