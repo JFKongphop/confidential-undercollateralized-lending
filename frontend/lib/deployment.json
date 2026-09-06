@@ -1,22 +1,26 @@
 {
   "network": "sepolia",
   "chainId": 11155111,
+  "deployer": "0x204a73e8303F3d09B12062dEdAA74B1CDA6E167d",
+  "marketId": 3,
+  "savings": "cUSDC",
   "contracts": {
-    "registry": "0xB2BCa33595c1e482e3a6cA9D4df99895fCe3030b",
-    "repTracker": "0x9bF6B78121824f50ae2ADD3F5D6095Cc48Af98F3",
-    "creditOracle": "0xFA52ee8e41ff766e8dC7675cfc59d454F3EbCba9",
-    "rateModel": "0xca2db97e8977CC68eC2f7dE0f16f4F743d6bd399",
-    "positions": "0x020564Fe5367E1c9F029Afc11C651b21061BeD27",
-    "guarantor": "0x21dD518251117e69174d34D1F43d5Fd340e243fC",
-    "auction": "0xf8C82290591dDA9A710aB4e07b5036D8F241930b",
-    "engine": "0xb2686e92CfB07830f504C0029dE1aF7c7F25444c",
-    "pool": "0xB3771769c56Eff1946D32ecdA91A50d9e22cb18D",
-    "compliance": "0x07A55C4f30D8B0c155c6167033cab6aB2075ebd0",
-    "cUSDC": "0xaD8aE90DefFFaf553aA2A07Ee0dd22C74451ec1C",
-    "cWETH": "0xC65AC40d37DAF5A39dEAe0cb0181574acDB82576",
-    "cWBTC": "0xf16ffA3C53d2D6469a4379e65d97A7a4e945d6f4",
-    "cLINK": "0x068339195c5326C914613F3B85aF963c3eC3ff63",
-    "cEUR": "0x8d87106463fde5a110B168383Ba07592d9F541f9"
+    "registry": "0x4b423F85b35E572BF02E621a127f5C420d43D92C",
+    "repTracker": "0xAF3D317d6C22f95fb2076f42414fB44639E31842",
+    "creditOracle": "0x438301dE2Ec1D1803bc3e103848c1ded000fCFaE",
+    "rateModel": "0xf5B8D05d79629a9F0C0C015Eda1c07514954C366",
+    "positions": "0xf9eAa5471DCA15f8cABA54d09F207704c526e234",
+    "guarantor": "0x941C2dC714B7D625C3F97a0D58D02558A1233A22",
+    "auction": "0x59AC9273467E78fC97C9d569FC3FDa51126eE70E",
+    "engine": "0x9C2fe9507b75372bf01E8Fc95580edbaCC51AeD8",
+    "pool": "0x9D2ae3888C540485eEf3c94be2C6842b1F92718A",
+    "compliance": "0xe27dd8f4f60bC67E14019Ec19071aAeb0798137d",
+    "prize": "0x91123C3C4Fe50F3fe5ADCF209D73a75F8D5C0243",
+    "cUSDC": "0xC6c91ef5645eA7C6Eb7638B8ba259374731da67d",
+    "cWETH": "0x6C51168dE1271eb2B93c601C6158720145707d3e",
+    "cWBTC": "0x9f822D7A5CE92e40c621E96CAd05aE380970B051",
+    "cLINK": "0x4C8Aea5e31fF3577EaDC16EE77B91Fc1a1D5d5C9",
+    "cEUR": "0xCe78ac4Ae26f9f4E236e97762f04d11203Fa177E"
   },
   "markets": [
     {
@@ -24,60 +28,65 @@
       "collateral": "cWETH",
       "debt": "cUSDC",
       "feed": "ETH/USD",
+      "oracle": "0x2F156d055e24dd11B9f27e5c768747e1fF69d6c1",
       "lltvBps": 8000,
-      "oracle": "0xDe01f6e95Bc8d4d2ddB36Aa4827f2fbE522dC844",
-      "collateralToken": "0xC65AC40d37DAF5A39dEAe0cb0181574acDB82576",
-      "debtToken": "0xaD8aE90DefFFaf553aA2A07Ee0dd22C74451ec1C"
+      "collateralToken": "0x6C51168dE1271eb2B93c601C6158720145707d3e",
+      "debtToken": "0xC6c91ef5645eA7C6Eb7638B8ba259374731da67d"
     },
     {
       "id": 1,
       "collateral": "cWBTC",
       "debt": "cUSDC",
       "feed": "BTC/USD",
+      "oracle": "0x47E55AfAa407Ef999cBA47C4bBB23314C7E542D7",
       "lltvBps": 8000,
-      "oracle": "0xc6f7CeDB7B93dd69060894fB12089109e03b4456",
-      "collateralToken": "0xf16ffA3C53d2D6469a4379e65d97A7a4e945d6f4",
-      "debtToken": "0xaD8aE90DefFFaf553aA2A07Ee0dd22C74451ec1C"
+      "collateralToken": "0x9f822D7A5CE92e40c621E96CAd05aE380970B051",
+      "debtToken": "0xC6c91ef5645eA7C6Eb7638B8ba259374731da67d"
     },
     {
       "id": 2,
       "collateral": "cLINK",
       "debt": "cUSDC",
       "feed": "LINK/USD",
+      "oracle": "0xF3Baa6B95d8781228bb971Bdb688fF62bdcF45C8",
       "lltvBps": 7500,
-      "oracle": "0x10dD24c4f246a16c7fc5A498aaBC3fCCab3C0f93",
-      "collateralToken": "0x068339195c5326C914613F3B85aF963c3eC3ff63",
-      "debtToken": "0xaD8aE90DefFFaf553aA2A07Ee0dd22C74451ec1C"
+      "collateralToken": "0x4C8Aea5e31fF3577EaDC16EE77B91Fc1a1D5d5C9",
+      "debtToken": "0xC6c91ef5645eA7C6Eb7638B8ba259374731da67d"
     },
     {
       "id": 3,
       "collateral": "cEUR",
       "debt": "cUSDC",
       "feed": "EUR/USD",
+      "oracle": "0x046744350dC137b30e20Cfdc7673d70359F8569E",
       "lltvBps": 8500,
-      "oracle": "0x95d98C0585d96969ea7FeF235F8BB4Ca5370fd35",
-      "collateralToken": "0x8d87106463fde5a110B168383Ba07592d9F541f9",
-      "debtToken": "0xaD8aE90DefFFaf553aA2A07Ee0dd22C74451ec1C"
+      "collateralToken": "0xCe78ac4Ae26f9f4E236e97762f04d11203Fa177E",
+      "debtToken": "0xC6c91ef5645eA7C6Eb7638B8ba259374731da67d"
     },
     {
       "id": 4,
       "collateral": "cWETH",
       "debt": "cWBTC",
       "feed": "ETH/USD/BTC/USD",
+      "oracle": "0x002970C4034860d6C394d5618c09E7914313c870",
       "lltvBps": 7500,
-      "oracle": "0x38592c4F348a22dA698C116947eBBe19FC45F8B2",
-      "collateralToken": "0xC65AC40d37DAF5A39dEAe0cb0181574acDB82576",
-      "debtToken": "0xf16ffA3C53d2D6469a4379e65d97A7a4e945d6f4"
+      "collateralToken": "0x6C51168dE1271eb2B93c601C6158720145707d3e",
+      "debtToken": "0x9f822D7A5CE92e40c621E96CAd05aE380970B051"
     },
     {
       "id": 5,
       "collateral": "cWBTC",
       "debt": "cWETH",
       "feed": "BTC/USD/ETH/USD",
+      "oracle": "0x13a0bC581e4C3fC01284B90cfFA0601E50d2cC1e",
       "lltvBps": 7500,
-      "oracle": "0xF553f808CDeBa13CB0A6d6EE85E9Df9fEFD5BCfd",
-      "collateralToken": "0xf16ffA3C53d2D6469a4379e65d97A7a4e945d6f4",
-      "debtToken": "0xC65AC40d37DAF5A39dEAe0cb0181574acDB82576"
+      "collateralToken": "0x9f822D7A5CE92e40c621E96CAd05aE380970B051",
+      "debtToken": "0x6C51168dE1271eb2B93c601C6158720145707d3e"
     }
-  ]
+  ],
+  "token": {
+    "symbol": "cUSDC",
+    "name": "Confidential USDC",
+    "decimals": 0
+  }
 }
