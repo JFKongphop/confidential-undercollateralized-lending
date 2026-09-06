@@ -70,6 +70,19 @@ contract LendingPool is ZamaEthereumConfig, IERC7984Receiver {
   address public liquidationEngine;
   address public liquidationAuction;
 
+  // ── Supplier side (CipherPool integration) ──────────────────────────────────
+  // A single authorized supplier (the confidential PrizePool) provides the borrowable liquidity for
+  // one market and, in return, harvests the REALIZED interest as its prize yield. All amounts stay
+  // encrypted. `_suppliedPrincipal` is what the supplier has put in; the market's debt-token reserve
+  // grows above it as borrowers repay interest — that growth is the harvestable yield.
+  address public yieldSupplier;
+  uint256 public yieldMarketId;
+  euint64 private _suppliedPrincipal;
+
+  event Supplied(uint256 indexed marketId);
+  event Redeemed(uint256 indexed marketId);
+  event YieldRecognized(uint256 indexed marketId);
+
   uint256 public utilizationBps = 5_000;
   uint64 internal constant SECONDS_PER_YEAR = 365 days;
   // KILLER FEATURE — reputation-unlocked credit line: encrypted reputation becomes an unsecured
@@ -145,6 +158,14 @@ contract LendingPool is ZamaEthereumConfig, IERC7984Receiver {
 
   function setLiquidationAuction(address a) external onlyAdmin {
     liquidationAuction = a;
+  }
+
+  /// @notice Register the confidential PrizePool as the sole liquidity supplier for `mid`. Its
+  ///         deposits become borrowable liquidity and it may harvest that market's realized interest.
+  function setYieldSupplier(address supplier, uint256 mid) external onlyAdmin {
+    require(mid < markets.length, "no market");
+    yieldSupplier = supplier;
+    yieldMarketId = mid;
   }
 
   // ── Deposit — collateral-token receiver callback (marketId encoded in `data`) ─
@@ -370,6 +391,68 @@ contract LendingPool is ZamaEthereumConfig, IERC7984Receiver {
     require(FHE.isInitialized(d), "no debt");
     FHE.allow(d, viewer);
     IComplianceViewer(viewer).grantAuditAccess(d, auditor);
+  }
+
+  // ── Supplier side — provide liquidity, redeem principal, harvest realized yield ─
+  modifier onlySupplier() {
+    require(msg.sender == yieldSupplier, "only supplier");
+    _;
+  }
+
+  /// @notice Supplier adds `amount` of the yield market's debt token as borrowable liquidity.
+  ///         Pulls the tokens (supplier must have set this pool as its operator) and records the
+  ///         principal. `amount` must be allowTransient'd to this pool by the caller.
+  function supply(euint64 amount) external onlySupplier {
+    IERC7984 dt = markets[yieldMarketId].debtToken;
+    FHE.allowTransient(amount, address(dt));
+    dt.confidentialTransferFrom(msg.sender, address(this), amount);
+
+    _suppliedPrincipal = FHE.isInitialized(_suppliedPrincipal) ? FHE.add(_suppliedPrincipal, amount) : amount;
+    FHE.allowThis(_suppliedPrincipal);
+    emit Supplied(yieldMarketId);
+  }
+
+  /// @notice Supplier redeems up to `amount` of principal. Clamped to both the supplied principal and
+  ///         the market's live liquidity (so an over-redeem never reverts); returns the amount paid.
+  function redeem(euint64 amount) external onlySupplier returns (euint64 paid) {
+    IERC7984 dt = markets[yieldMarketId].debtToken;
+    euint64 principal = FHE.isInitialized(_suppliedPrincipal) ? _suppliedPrincipal : FHE.asEuint64(0);
+    euint64 reserve = dt.confidentialBalanceOf(address(this));
+
+    paid = FHE.select(FHE.le(amount, principal), amount, principal); // <= principal
+    paid = FHE.select(FHE.le(paid, reserve), paid, reserve); // <= liquidity
+
+    _suppliedPrincipal = FHE.sub(principal, paid);
+    FHE.allowThis(_suppliedPrincipal);
+
+    FHE.allowTransient(paid, address(dt));
+    dt.confidentialTransfer(msg.sender, paid);
+    FHE.allowThis(paid);
+    FHE.allow(paid, msg.sender);
+    emit Redeemed(yieldMarketId);
+    return paid;
+  }
+
+  /// @notice Recognize the realized interest: yield = max(reserve - suppliedPrincipal, 0). The
+  ///         interest tokens are already in the reserve (borrowers repaid them), so no transfer is
+  ///         needed — the yield is reclassified as supplied principal and returned to the supplier to
+  ///         book as its prize. Only the supplier may call.
+  function recognizeYield() external onlySupplier returns (euint64 yield) {
+    IERC7984 dt = markets[yieldMarketId].debtToken;
+    euint64 reserve = dt.confidentialBalanceOf(address(this));
+    euint64 principal = FHE.isInitialized(_suppliedPrincipal) ? _suppliedPrincipal : FHE.asEuint64(0);
+
+    yield = FHE.select(FHE.gt(reserve, principal), FHE.sub(reserve, principal), FHE.asEuint64(0));
+    _suppliedPrincipal = FHE.add(principal, yield); // claim the interest as principal (backs the prize)
+    FHE.allowThis(_suppliedPrincipal);
+    FHE.allowThis(yield);
+    FHE.allow(yield, msg.sender);
+    emit YieldRecognized(yieldMarketId);
+    return yield;
+  }
+
+  function suppliedPrincipal() external view returns (euint64) {
+    return _suppliedPrincipal;
   }
 
   // ── Views ───────────────────────────────────────────────────────────────────
